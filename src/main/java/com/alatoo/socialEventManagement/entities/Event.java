@@ -9,6 +9,10 @@ import lombok.*;
 
 import java.util.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
 @Entity
 public class Event {
     @Id
