@@ -11,13 +11,17 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "\"like\"")
 public class Like {
     @Id
     @GeneratedValue
     private Long likeId;
+
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+
     @ManyToOne
+    @JoinColumn(name = "event_id")
     private Event event;
 }

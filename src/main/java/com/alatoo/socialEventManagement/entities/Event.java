@@ -8,6 +8,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,5 +26,12 @@ public class Event {
     private Date date;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User createdBy;
+
+    @OneToMany(mappedBy = "event")
+    private Set<Like> likes = new HashSet<>();
+
+    @OneToMany(mappedBy = "event")
+    private Set<Comment> comments = new HashSet<>();
 }
