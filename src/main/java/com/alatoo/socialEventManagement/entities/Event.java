@@ -13,7 +13,8 @@ import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 @Entity
 public class Event {
@@ -30,8 +31,10 @@ public class Event {
     private User createdBy;
 
     @OneToMany(mappedBy = "event")
+    @Builder.Default
     private Set<Like> likes = new HashSet<>();
 
     @OneToMany(mappedBy = "event")
+    @Builder.Default
     private Set<Comment> comments = new HashSet<>();
 }

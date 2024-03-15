@@ -1,17 +1,15 @@
 package com.alatoo.socialEventManagement.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 @Entity
 @Table(name = "\"user\"")
@@ -24,11 +22,14 @@ public class User {
     private String name;
 
     @OneToMany(mappedBy = "createdBy")
+    @Builder.Default
     private Set<Event> createdEvents = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
+    @Builder.Default
     private Set<Like> likes = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
+    @Builder.Default
     private Set<Comment> comments = new HashSet<>();
 }
