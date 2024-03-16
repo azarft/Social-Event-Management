@@ -1,4 +1,4 @@
-package com.alatoo.socialEventManagement;
+package com.alatoo.socialEventManagement.mapperTest;
 
 import com.alatoo.socialEventManagement.dto.*;
 import com.alatoo.socialEventManagement.entities.*;

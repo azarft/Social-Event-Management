@@ -1,4 +1,4 @@
-package com.alatoo.socialEventManagement;
+package com.alatoo.socialEventManagement.repositoryTest;
 import com.alatoo.socialEventManagement.entities.Comment;
 import com.alatoo.socialEventManagement.entities.Event;
 import com.alatoo.socialEventManagement.entities.Like;

@@ -1,4 +1,4 @@
-package com.alatoo.socialEventManagement;
+package com.alatoo.socialEventManagement.repositoryTest;
 
 import com.alatoo.socialEventManagement.entities.User;
 import com.alatoo.socialEventManagement.repositories.UserRepository;
