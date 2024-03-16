@@ -4,11 +4,13 @@ import com.alatoo.socialEventManagement.dto.LikeDTO;
 import com.alatoo.socialEventManagement.entities.Like;
 import com.alatoo.socialEventManagement.mappers.LikeMapper;
 import com.alatoo.socialEventManagement.repositories.LikeRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class LikeServiceJPA implements LikeService{
     private final LikeRepository likeRepository;
     private final LikeMapper likeMapper;
