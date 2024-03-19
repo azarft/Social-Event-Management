@@ -29,7 +29,7 @@ public class UserApiController {
     @GetMapping(ID_PATH)
     public UserDTO getById(@PathVariable Long id) {
         log.info("Getting user with id: {}", id);
-        return userService.findUserByID(id).orElseThrow(NotFoundException::new);
+        return userService.findUserByID(id).orElseThrow(() -> new NotFoundException("User not found with id: " + id));
     }
 
     @PostMapping(USER_PATH)
@@ -39,9 +39,7 @@ public class UserApiController {
 
     @PutMapping(ID_PATH)
     public UserDTO updateUser(@PathVariable Long id, @Validated @RequestBody UserDTO userDTO) {
-        if (!userService.findUserByID(id).isPresent()) {
-            throw new NotFoundException();
-        }
+        userService.findUserByID(id).orElseThrow(() -> new NotFoundException("User not found with id: " + id));
         userDTO.setId(id);
         return userService.saveUser(userDTO);
     }

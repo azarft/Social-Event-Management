@@ -1,6 +1,6 @@
 package com.alatoo.socialEventManagement.controllers;
 
-import com.alatoo.socialEventManagement.controllers.exceptions.NotFoundException;
+import gcom.alatoo.socialEventManagement.controllers.exceptions.NotFoundException;
 import com.alatoo.socialEventManagement.dto.CommentDTO;
 import com.alatoo.socialEventManagement.services.comment.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class CommentApiController {
     @GetMapping(ID_PATH)
     public CommentDTO getById(@PathVariable Long id) {
         log.info("Getting comment with id: {}", id);
-        return commentService.findCommentById(id).orElseThrow(NotFoundException::new);
+        return commentService.findCommentById(id).orElseThrow(() -> new NotFoundException("Comment not found with id: " + id));
     }
 
     @PostMapping(COMMENT_PATH)
@@ -38,9 +38,7 @@ public class CommentApiController {
 
     @PutMapping(ID_PATH)
     public CommentDTO updateComment(@PathVariable Long id, @Validated @RequestBody CommentDTO commentDTO) {
-        if (!commentService.findCommentById(id).isPresent()) {
-            throw new NotFoundException();
-        }
+        commentService.findCommentById(id).orElseThrow(() -> new NotFoundException("Comment not found with id: " + id));
         commentDTO.setCommentId(id);
         return commentService.saveComment(commentDTO);
     }
@@ -49,5 +47,4 @@ public class CommentApiController {
     public void deleteComment(@PathVariable Long id) {
         commentService.deleteComment(id);
     }
-
 }

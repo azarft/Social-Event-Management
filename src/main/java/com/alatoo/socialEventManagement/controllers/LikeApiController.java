@@ -15,6 +15,7 @@ import java.util.List;
 @Log4j2
 @RequestMapping("/api/v1")
 public class LikeApiController {
+
     private final String LIKE_PATH = "/like";
     private final String ID_PATH = LIKE_PATH + "/{id}";
 
@@ -28,7 +29,7 @@ public class LikeApiController {
     @GetMapping(ID_PATH)
     public LikeDTO getById(@PathVariable Long id) {
         log.info("Getting like with id: {}", id);
-        return likeService.findLikeById(id).orElseThrow(NotFoundException::new);
+        return likeService.findLikeById(id).orElseThrow(() -> new NotFoundException("Like not found with id: " + id));
     }
 
     @PostMapping(LIKE_PATH)
@@ -38,9 +39,7 @@ public class LikeApiController {
 
     @PutMapping(ID_PATH)
     public LikeDTO updateLike(@PathVariable Long id, @Validated @RequestBody LikeDTO likeDTO) {
-        if (!likeService.findLikeById(id).isPresent()) {
-            throw new NotFoundException();
-        }
+        likeService.findLikeById(id).orElseThrow(() -> new NotFoundException("Like not found with id: " + id));
         likeDTO.setLikeId(id);
         return likeService.saveLike(likeDTO);
     }
@@ -49,5 +48,4 @@ public class LikeApiController {
     public void deleteLike(@PathVariable Long id) {
         likeService.deleteLike(id);
     }
-
 }

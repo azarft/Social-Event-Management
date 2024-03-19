@@ -15,6 +15,7 @@ import java.util.List;
 @Log4j2
 @RequestMapping("/api/v1")
 public class EventApiController {
+
     private final String EVENT_PATH = "/event";
     private final String ID_PATH = EVENT_PATH + "/{id}";
 
@@ -28,7 +29,7 @@ public class EventApiController {
     @GetMapping(ID_PATH)
     public EventDTO getById(@PathVariable Long id) {
         log.info("Getting event with id: {}", id);
-        return eventService.findEventByID(id).orElseThrow(NotFoundException::new);
+        return eventService.findEventByID(id).orElseThrow(() -> new NotFoundException("Event not found with id: " + id));
     }
 
     @PostMapping(EVENT_PATH)
@@ -38,9 +39,7 @@ public class EventApiController {
 
     @PutMapping(ID_PATH)
     public EventDTO updateEvent(@PathVariable Long id, @Validated @RequestBody EventDTO eventDTO) {
-        if (!eventService.findEventByID(id).isPresent()) {
-            throw new NotFoundException();
-        }
+        eventService.findEventByID(id).orElseThrow(() -> new NotFoundException("Event not found with id: " + id));
         eventDTO.setEventId(id);
         return eventService.saveEvent(eventDTO);
     }
@@ -49,5 +48,4 @@ public class EventApiController {
     public void deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id);
     }
-
 }
