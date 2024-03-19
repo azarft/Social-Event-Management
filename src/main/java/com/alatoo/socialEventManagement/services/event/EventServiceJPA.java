@@ -2,6 +2,9 @@ package com.alatoo.socialEventManagement.services.event;
 
 import com.alatoo.socialEventManagement.dto.EventDTO;
 import com.alatoo.socialEventManagement.entities.Event;
+import com.alatoo.socialEventManagement.controllers.exceptions.NotFoundException;
+import com.alatoo.socialEventManagement.controllers.exceptions.InvalidRequestException;
+import com.alatoo.socialEventManagement.controllers.exceptions.InternalServerErrorException;
 import com.alatoo.socialEventManagement.mappers.EventMapper;
 import com.alatoo.socialEventManagement.repositories.EventRepository;
 import org.springframework.stereotype.Service;
@@ -11,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class EventServiceJPA implements EventService{
+public class EventServiceJPA implements EventService {
     private final EventRepository eventRepository;
     private final EventMapper eventMapper;
 
@@ -19,6 +22,7 @@ public class EventServiceJPA implements EventService{
         this.eventMapper = eventMapper;
         this.eventRepository = eventRepository;
     }
+
     @Override
     public List<EventDTO> findAllEvents() {
         List<Event> events = (List<Event>) eventRepository.findAll();
@@ -30,19 +34,26 @@ public class EventServiceJPA implements EventService{
     @Override
     public Optional<EventDTO> findEventByID(Long id) {
         Optional<Event> optionalEvent = eventRepository.findById(id);
-        return Optional.ofNullable(
-                eventMapper.eventToEventDto(optionalEvent.orElse(null))
-        );
+        Event event = optionalEvent.orElseThrow(() -> new NotFoundException("Event not found with id: " + id));
+        return Optional.of(eventMapper.eventToEventDto(event));
     }
 
     @Override
     public EventDTO saveEvent(EventDTO dto) {
+        if (dto == null) {
+            throw new InvalidRequestException("EventDTO cannot be null");
+        }
         Event savedEvent = eventRepository.save(eventMapper.eventDtoToEvent(dto));
         return eventMapper.eventToEventDto(savedEvent);
     }
 
     @Override
     public void deleteEvent(Long id) {
-        eventRepository.deleteById(id);
+        try {
+            eventRepository.deleteById(id);
+        } catch (Exception ex) {
+            throw new InternalServerErrorException("Failed to delete event with id: " + id);
+        }
     }
 }
+

@@ -1,11 +1,10 @@
 package com.alatoo.socialEventManagement.controllers;
 
+import com.alatoo.socialEventManagement.controllers.exceptions.NotFoundException;
 import com.alatoo.socialEventManagement.dto.LikeDTO;
 import com.alatoo.socialEventManagement.services.like.LikeService;
-import com.alatoo.socialEventManagement.services.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.alatoo.socialEventManagement.controllers;
+package com.alatoo.socialEventManagement.controllers.exceptions;
 
 
 import org.springframework.http.HttpStatus;

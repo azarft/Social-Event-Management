@@ -1,5 +1,6 @@
 package com.alatoo.socialEventManagement.services.like;
 
+import com.alatoo.socialEventManagement.controllers.exceptions.NotFoundException;
 import com.alatoo.socialEventManagement.dto.LikeDTO;
 import com.alatoo.socialEventManagement.entities.Like;
 import com.alatoo.socialEventManagement.mappers.LikeMapper;
@@ -11,7 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class LikeServiceJPA implements LikeService{
+public class LikeServiceJPA implements LikeService {
     private final LikeRepository likeRepository;
     private final LikeMapper likeMapper;
 
@@ -19,10 +20,11 @@ public class LikeServiceJPA implements LikeService{
         this.likeMapper = likeMapper;
         this.likeRepository = likeRepository;
     }
+
     @Override
     public List<LikeDTO> findAllLikes() {
-        List<Like> events = (List<Like>) likeRepository.findAll();
-        return events.stream()
+        List<Like> likes = (List<Like>) likeRepository.findAll();
+        return likes.stream()
                 .map(likeMapper::likeToLikeDto)
                 .collect(Collectors.toList());
     }
@@ -30,9 +32,8 @@ public class LikeServiceJPA implements LikeService{
     @Override
     public Optional<LikeDTO> findLikeById(Long id) {
         Optional<Like> optionalLike = likeRepository.findById(id);
-        return Optional.ofNullable(
-                likeMapper.likeToLikeDto(optionalLike.orElse(null))
-        );
+        Like like = optionalLike.orElseThrow(() -> new NotFoundException("Like not found with id: " + id));
+        return Optional.of(likeMapper.likeToLikeDto(like));
     }
 
     @Override
@@ -43,6 +44,10 @@ public class LikeServiceJPA implements LikeService{
 
     @Override
     public void deleteLike(Long id) {
+        if (!likeRepository.existsById(id)) {
+            throw new NotFoundException("Like not found with id: " + id);
+        }
         likeRepository.deleteById(id);
     }
 }
+

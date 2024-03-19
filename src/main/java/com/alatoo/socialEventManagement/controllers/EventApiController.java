@@ -1,8 +1,8 @@
 package com.alatoo.socialEventManagement.controllers;
 
+import com.alatoo.socialEventManagement.controllers.exceptions.NotFoundException;
 import com.alatoo.socialEventManagement.dto.EventDTO;
 import com.alatoo.socialEventManagement.services.event.EventService;
-import com.alatoo.socialEventManagement.services.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.validation.annotation.Validated;

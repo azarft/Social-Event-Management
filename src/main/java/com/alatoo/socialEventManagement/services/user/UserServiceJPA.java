@@ -1,5 +1,6 @@
 package com.alatoo.socialEventManagement.services.user;
 
+import com.alatoo.socialEventManagement.controllers.exceptions.NotFoundException;
 import com.alatoo.socialEventManagement.dto.UserDTO;
 import com.alatoo.socialEventManagement.entities.User;
 import com.alatoo.socialEventManagement.mappers.UserMapper;
@@ -11,13 +12,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceJPA implements UserService{
+public class UserServiceJPA implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public UserServiceJPA(UserRepository userRepository, UserMapper userMapper){
-        this.userMapper = userMapper;
+    public UserServiceJPA(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -31,9 +32,8 @@ public class UserServiceJPA implements UserService{
     @Override
     public Optional<UserDTO> findUserByID(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
-        return Optional.ofNullable(
-                userMapper.userToUserDto(optionalUser.orElse(null))
-        );
+        User user = optionalUser.orElseThrow(() -> new NotFoundException("User not found with id: " + id));
+        return Optional.of(userMapper.userToUserDto(user));
     }
 
     @Override
@@ -44,6 +44,9 @@ public class UserServiceJPA implements UserService{
 
     @Override
     public void deleteUser(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new NotFoundException("User not found with id: " + id);
+        }
         userRepository.deleteById(id);
     }
 }
