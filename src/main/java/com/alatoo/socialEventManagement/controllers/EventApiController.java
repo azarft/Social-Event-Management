@@ -20,7 +20,7 @@ public class EventApiController {
 
     private final EventService eventService;
 
-    @GetMapping(EVENT_PATH)
+    @GetMapping("/event")
     public List<EventDTO> getAllEvents() {
         return eventService.findAllEvents();
     }
@@ -31,7 +31,7 @@ public class EventApiController {
         return eventService.findEventByID(id).orElseThrow(NotFoundException::new);
     }
 
-    @PostMapping("EVENT_PATH")
+    @PostMapping(EVENT_PATH)
     public EventDTO createEvent(@Validated @RequestBody EventDTO eventDTO) {
         return eventService.saveEvent(eventDTO);
     }

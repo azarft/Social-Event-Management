@@ -1,4 +1,4 @@
-package com.alatoo.socialEventManagement.mockitoAndMockMvcTest;
+package com.alatoo.socialEventManagement.mockitoAndMockMvcTest.mockito;
 
 import com.alatoo.socialEventManagement.controllers.EventApiController;
 import com.alatoo.socialEventManagement.dto.EventDTO;
