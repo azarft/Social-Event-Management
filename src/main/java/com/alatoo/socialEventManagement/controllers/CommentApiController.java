@@ -1,6 +1,6 @@
 package com.alatoo.socialEventManagement.controllers;
 
-import gcom.alatoo.socialEventManagement.controllers.exceptions.NotFoundException;
+import com.alatoo.socialEventManagement.controllers.exceptions.NotFoundException;
 import com.alatoo.socialEventManagement.dto.CommentDTO;
 import com.alatoo.socialEventManagement.services.comment.CommentService;
 import lombok.RequiredArgsConstructor;
