@@ -32,6 +32,5 @@ public class UserRepositoryTest {
         assertTrue(retrievedUser.isPresent());
         assertEquals(user.getUsername(), retrievedUser.get().getUsername());
         assertEquals(user.getEmail(), retrievedUser.get().getEmail());
-        // Add more assertions as needed
     }
 }
