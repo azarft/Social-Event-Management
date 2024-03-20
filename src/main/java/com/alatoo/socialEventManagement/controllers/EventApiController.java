@@ -1,8 +1,9 @@
 package com.alatoo.socialEventManagement.controllers;
 
-import com.alatoo.socialEventManagement.controllers.exceptions.NotFoundException;
+import com.alatoo.socialEventManagement.exceptions.NotFoundException;
 import com.alatoo.socialEventManagement.dto.EventDTO;
 import com.alatoo.socialEventManagement.services.event.EventService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.validation.annotation.Validated;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Log4j2
 @RequestMapping("/api/v1")
+@Api(tags = "Event API")
 public class EventApiController {
 
     private final String EVENT_PATH = "/event";

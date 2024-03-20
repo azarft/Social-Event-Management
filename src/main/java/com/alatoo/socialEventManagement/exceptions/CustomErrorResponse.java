@@ -1,4 +1,4 @@
-package com.alatoo.socialEventManagement.controllers.exceptions;
+package com.alatoo.socialEventManagement.exceptions;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,7 @@
 package com.alatoo.socialEventManagement.exceptionTest;
 
 import com.alatoo.socialEventManagement.controllers.exceptions.*;
+import com.alatoo.socialEventManagement.exceptions.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;

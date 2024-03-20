@@ -1,6 +1,6 @@
 package com.alatoo.socialEventManagement.services.comment;
 
-import com.alatoo.socialEventManagement.controllers.exceptions.NotFoundException;
+import com.alatoo.socialEventManagement.exceptions.NotFoundException;
 import com.alatoo.socialEventManagement.dto.CommentDTO;
 import com.alatoo.socialEventManagement.entities.Comment;
 import com.alatoo.socialEventManagement.mappers.CommentMapper;

@@ -1,4 +1,4 @@
-package com.alatoo.socialEventManagement.controllers.exceptions;
+package com.alatoo.socialEventManagement.exceptions;
 
 public class InternalServerErrorException extends RuntimeException {
 

@@ -1,6 +1,6 @@
 package com.alatoo.socialEventManagement.services.user;
 
-import com.alatoo.socialEventManagement.controllers.exceptions.NotFoundException;
+import com.alatoo.socialEventManagement.exceptions.NotFoundException;
 import com.alatoo.socialEventManagement.dto.UserDTO;
 import com.alatoo.socialEventManagement.entities.User;
 import com.alatoo.socialEventManagement.mappers.UserMapper;

@@ -1,8 +1,9 @@
 package com.alatoo.socialEventManagement.controllers;
 
-import com.alatoo.socialEventManagement.controllers.exceptions.NotFoundException;
+import com.alatoo.socialEventManagement.exceptions.NotFoundException;
 import com.alatoo.socialEventManagement.dto.UserDTO;
 import com.alatoo.socialEventManagement.services.user.UserService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.validation.annotation.Validated;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
 @Log4j2
+@Api(tags = "User API")
 public class UserApiController {
 
     private final String USER_PATH = "/user";

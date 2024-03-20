@@ -1,6 +1,6 @@
 package com.alatoo.socialEventManagement.services.like;
 
-import com.alatoo.socialEventManagement.controllers.exceptions.NotFoundException;
+import com.alatoo.socialEventManagement.exceptions.NotFoundException;
 import com.alatoo.socialEventManagement.dto.LikeDTO;
 import com.alatoo.socialEventManagement.entities.Like;
 import com.alatoo.socialEventManagement.mappers.LikeMapper;

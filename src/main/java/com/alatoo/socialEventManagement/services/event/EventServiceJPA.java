@@ -2,9 +2,9 @@ package com.alatoo.socialEventManagement.services.event;
 
 import com.alatoo.socialEventManagement.dto.EventDTO;
 import com.alatoo.socialEventManagement.entities.Event;
-import com.alatoo.socialEventManagement.controllers.exceptions.NotFoundException;
-import com.alatoo.socialEventManagement.controllers.exceptions.InvalidRequestException;
-import com.alatoo.socialEventManagement.controllers.exceptions.InternalServerErrorException;
+import com.alatoo.socialEventManagement.exceptions.NotFoundException;
+import com.alatoo.socialEventManagement.exceptions.InvalidRequestException;
+import com.alatoo.socialEventManagement.exceptions.InternalServerErrorException;
 import com.alatoo.socialEventManagement.mappers.EventMapper;
 import com.alatoo.socialEventManagement.repositories.EventRepository;
 import org.springframework.stereotype.Service;
