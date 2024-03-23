@@ -1,15 +1,18 @@
 package com.alatoo.socialEventManagement.controllers;
 
+import com.alatoo.socialEventManagement.entities.User;
 import com.alatoo.socialEventManagement.exceptions.NotFoundException;
 import com.alatoo.socialEventManagement.dto.UserDTO;
 import com.alatoo.socialEventManagement.services.user.UserService;
 import io.swagger.annotations.Api;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -44,6 +47,33 @@ public class UserApiController {
         userService.findUserByID(id).orElseThrow(() -> new NotFoundException("User not found with id: " + id));
         userDTO.setId(id);
         return userService.saveUser(userDTO);
+    }
+
+    @Transactional
+    @PatchMapping(ID_PATH)
+    public UserDTO updateUser(@PathVariable Long id, @RequestBody Map<String, String> updates) {
+        UserDTO user = userService.findUserByID(id)
+                .orElseThrow(() -> new NotFoundException("User not found with id: " + id));
+
+        updates.forEach((key, value) -> {
+            switch (key) {
+                case "name":
+                    user.setName(value);
+                    break;
+                case "username":
+                    user.setUsername(value);
+                    break;
+                case "email":
+                    user.setEmail(value);
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        userService.saveUser(user);
+
+        return user;
     }
 
     @DeleteMapping(ID_PATH)
