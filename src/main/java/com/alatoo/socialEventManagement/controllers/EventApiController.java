@@ -3,19 +3,20 @@ package com.alatoo.socialEventManagement.controllers;
 import com.alatoo.socialEventManagement.exceptions.NotFoundException;
 import com.alatoo.socialEventManagement.dto.EventDTO;
 import com.alatoo.socialEventManagement.services.event.EventService;
-import io.swagger.annotations.Api;
+//import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
 @Log4j2
 @RequestMapping("/api/v1")
-@Api(tags = "Event API")
 public class EventApiController {
 
     private final String EVENT_PATH = "/event";
@@ -44,6 +45,31 @@ public class EventApiController {
         eventService.findEventByID(id).orElseThrow(() -> new NotFoundException("Event not found with id: " + id));
         eventDTO.setEventId(id);
         return eventService.saveEvent(eventDTO);
+    }
+
+    @PatchMapping(ID_PATH)
+    public EventDTO patchEvent(@PathVariable Long id, @RequestBody Map<String, Object> updates) {
+        EventDTO existingEvent = eventService.findEventByID(id)
+                .orElseThrow(() -> new NotFoundException("Event not found with id: " + id));
+
+        updates.forEach((key, value) -> {
+            switch (key) {
+                case "name":
+                    existingEvent.setEventName((String) value);
+                    break;
+                case "description":
+                    existingEvent.setDescription((String) value);
+                    break;
+                case "location":
+                    existingEvent.setLocation((String) value);
+                    break;
+                case "date":
+                    existingEvent.setDate((Date) value);
+                    break;
+            }
+        });
+
+        return eventService.saveEvent(existingEvent);
     }
 
     @DeleteMapping(ID_PATH)

@@ -3,7 +3,7 @@ package com.alatoo.socialEventManagement.controllers;
 import com.alatoo.socialEventManagement.exceptions.NotFoundException;
 import com.alatoo.socialEventManagement.dto.LikeDTO;
 import com.alatoo.socialEventManagement.services.like.LikeService;
-import io.swagger.annotations.Api;
+//import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.validation.annotation.Validated;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Log4j2
 @RequestMapping("/api/v1")
-@Api(tags = "Like API")
+
 public class LikeApiController {
 
     private final String LIKE_PATH = "/like";
